@@ -1,7 +1,7 @@
 import React from 'react';
 import List from './List'
 
-function Home({wineData}) {
+function Home({wineData, onUpdateWine, onDeleteWine}) {
 
     // const styles = {
     //     background: "#02577a",
@@ -10,7 +10,7 @@ function Home({wineData}) {
 
   return (
     <div>
-       <List wineData={wineData}/>
+       <List wineData={wineData} onUpdateWine={onUpdateWine} onDeleteWine={onDeleteWine}/>
     </div>
   );
 }

@@ -1,20 +1,22 @@
 import React from 'react';
 import ListItem from './ListItem';
 
-function List({wineData}) {
+function List({wineData, onUpdateWine, onDeleteWine}) {
 
-    // const styles = {
-    //     background: "#02577a",
-    //     color: "white"
-    //   };
+    const styles = {
+        background: "#02577a",
+        color: "white"
+      };
 
   return (
-    <div>
+    <div style={styles}>
        <ul>
-       {wineData ? wineData.map((item)=> 
+       {wineData ? wineData.map((wine)=> 
                     <ListItem 
-                        item={item} 
-                        key={item.id} 
+                        wine={wine} 
+                        key={wine.id}
+                        onUpdateWine={onUpdateWine} 
+                        onDeleteWine={onDeleteWine} 
                     />) : []}
        </ul>
     </div>
