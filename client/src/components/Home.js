@@ -1,7 +1,8 @@
 import React from 'react';
 import List from './List'
+import NewWineForm from './NewWineForm';
 
-function Home({wineData, onUpdateWine, onDeleteWine}) {
+function Home({data, onUpdateWine, onDeleteWine, wineryData, handleAddWine, user}) {
 
     // const styles = {
     //     background: "#02577a",
@@ -10,7 +11,8 @@ function Home({wineData, onUpdateWine, onDeleteWine}) {
 
   return (
     <div>
-       <List wineData={wineData} onUpdateWine={onUpdateWine} onDeleteWine={onDeleteWine}/>
+      {user ? <NewWineForm onAddWine={handleAddWine} wineData={data} wineryData={wineryData}/> : []}
+      <List wineData={data} onUpdateWine={onUpdateWine} onDeleteWine={onDeleteWine} user={user}/>
     </div>
   );
 }

@@ -1,4 +1,6 @@
 class Wine < ApplicationRecord
-    has_many :items
-    has_many :users, through: :items
+    validates :name, :verietal, :region, :year, :winery_id, presence: true
+    belongs_to :user, optional: true
+    belongs_to :winery, optional: true
+
 end

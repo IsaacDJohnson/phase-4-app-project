@@ -1,9 +1,9 @@
 import React from 'react';
 
-function Header(){
+function Header({user, username}){
     return (
         <div className='header'>
-            Welcome to From the Vine WineClub and Catalogue
+            {!user ? <h1>Welcome to From the Vine WineClub and Catalogue</h1> : <h1>Welcome {username}</h1>}
         </div>
     )
 }

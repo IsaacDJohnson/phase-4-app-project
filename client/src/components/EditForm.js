@@ -1,15 +1,19 @@
 import React from "react";
 
-function EditForm(name, verietal, region, year, handleSubmit, handleChangeName, handleChangeRegion, handleChangeVerietal, handleChangeYear){
+
+function EditForm({name, verietal, region, year, handleSubmit, handleChangeName, handleChangeRegion, handleChangeYear}){
+
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <input type="text" value={name} onChange={handleChangeName}></input><br/>
-                <select>
-                    <option value={verietal}></option>
-                </select><br/>
-                <input type="text" value={region} onChange={handleChangeRegion}></input><br/>
-                <input type="text" value={year} onChange={handleChangeYear}></input><br/>
+                <p></p>
+                <input type="text" id="name" value={name} onChange={handleChangeName}></input><br/>
+                <p>verietal:</p>
+                <input type="text" id="verietal" value={verietal} onChange={handleChangeName}></input><br/>
+                <p>region:</p>
+                <input type="text" id="region" value={region} onChange={handleChangeRegion}></input><br/>
+                <p>year:</p>
+                <input type="text" id="year" value={year} onChange={handleChangeYear}></input><b/>
                 <button type="submit">Submit</button>
             </form>
         </div>

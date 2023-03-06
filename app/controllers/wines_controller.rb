@@ -31,10 +31,10 @@ class WinesController < ApplicationController
     private
 
     def wine_params
-        params.permit(:name, :verietal, :origin, :year)    
+        params.permit(:name, :verietal, :region, :year, :winery_id)    
     end
 
     def render_not_found_response
-        render json: { error: "Author not found" }, status: :not_found
+        render json: { error: "Wine not found" }, status: :not_found
     end
 end

@@ -2,13 +2,10 @@ import React, {useState} from "react";
 
 const initialState = {
     name: "name",
-    verietal: "verietal",
     region: "region",
-    year: "year",
-    winery_id: "winery_id"
 }
 
-function NewWineForm({onAddWine, wineData, wineryData}){
+function NewWineryForm({onAddWinery}){
 
     const [formData, setFormData] = useState(initialState)
 
@@ -22,7 +19,7 @@ function NewWineForm({onAddWine, wineData, wineryData}){
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        fetch("/wines", {
+        fetch("/wineries", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -30,32 +27,23 @@ function NewWineForm({onAddWine, wineData, wineryData}){
           body: JSON.stringify(formData),
         })
           .then((r) => r.json())
-          .then((newWine) => {
+          .then((newWinery) => {
             setFormData(initialState);
-            onAddWine(newWine);
-            console.log(newWine)
+            onAddWinery(newWinery);
+            console.log(newWinery)
           });
       }
 
     return (
         <div>
-            <h3>Add A New Wine</h3>
+            <h3>Add A New Winery</h3>
             <form onSubmit={handleSubmit}>
                 <input type="text" id="name" value={formData.name} onChange={handleChange}/><br/>
-                <select onChange={handleChange} value={formData.verietal} id="verietal">
-                    <option >Select Verietal</option>
-                    {wineData.map((wine) => <option value={wine.verietal} key={wine.id}>{wine.verietal}</option>)}
-                </select><br/>
                 <input type="text" id="region" value={formData.region} onChange={handleChange}/><br/>
-                <input type="text" id="year" value={formData.year} onChange={handleChange}/><br/>
-                <select onChange={handleChange} value={formData.winery_id} id="winery_id">
-                    <option >Select Winery</option>
-                    {wineryData.map((winery) => <option value={winery.id} key={winery.id}>{winery.name}</option>)}
-                </select><br/>
                 <button type="submit">add</button>
             </form>
         </div>
     )
 }
 
-export default NewWineForm;
+export default NewWineryForm;

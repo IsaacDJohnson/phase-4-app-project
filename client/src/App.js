@@ -4,25 +4,41 @@ import NavBar from "./components/NavBar";
 import Header from './components/Header'
 import Home from './components/Home'
 import LogInUser from './components/LogInUser';
-import NewWineForm from './components/NewWineForm'
-import FindWine from './components/FindWine';
+import WineriesList from './components/WineriesList';
+import Users from './components/Users'
+import CreateUser from './components/CreateUser';
 
 function App() {
 
+  const [wineData, setWineData] = useState([])
   const [data, setData] = useState([])
+  const [user, setUser] = useState(null)
+  const [userLoggedin, setUserLoggedin] = useState([])
+  const [userData, setUserData] = useState([])
 
   useEffect(()=>{
+    fetch("/me").then((r) => {
+      if (r.ok) {
+        r.json().then((user) => setUser(user))
+      }
+    })
+    fetch("/users")
+    .then(res => res.json())
+    .then(data => setUserData(data))
+    fetch("/wineries")
+    .then(res => res.json())
+    .then(data => setData(data))
     fetch("/wines")
     .then(res => res.json())
-    .then(setData)
-}, [])
+    .then(data => setWineData(data))
+}, []);
 
 function handleAddWine(addedWine) {
-  setData((wines) => [...wines, addedWine]);
+  setWineData((wines) => [...wines, addedWine]);
 }
 
 function handleUpdateWine(updatedWine) {
-  setData((wines) =>
+  setWineData((wines) =>
     wines.map((wine) => {
       return wine.id === updatedWine.id ? updatedWine : wine;
     })
@@ -30,27 +46,50 @@ function handleUpdateWine(updatedWine) {
 }
 
 function handleDeleteWine(deletedWine) {
-  setData((wines) =>
+  setWineData((wines) =>
     wines.filter((wine) => wine.id !== deletedWine.id)
   );
 }
 
+function onAddWinery(addedWinery){
+  setData((wineries) => [...wineries, addedWinery])
+}
 
-  return (
-    <div className="App">
-    <Header />
-    <NavBar />
-    <LogInUser />
-    <NewWineForm onAddWine={handleAddWine} wineData={data}/>
-    <FindWine />
-      <Switch>
+function onLogin(user){
+  setUser(user)
+}
+
+
+
+return (                             
+  <div className="App">
+    <Header user={user} username={user ? user.username : []}/>
+    <NavBar setUser={setUser} user={user}/>
+    {!user ? <LogInUser onLogin={onLogin}/> : []}
+      <Switch>  
         <Route exact path="/">
           {<Home 
-            wineData={data}
+            data={wineData}
             onUpdateWine={handleUpdateWine}
             onDeleteWine={handleDeleteWine}
+            onAddWine={handleAddWine}
+            wineryData={data}
+            user={user}
           />}
-        </Route>    
+        </Route>
+        <Route exact path="/wineries">{
+          <WineriesList
+            userCheck={user}
+            data={data} 
+            onAddWinery={onAddWinery}
+          />}
+          </Route>
+          <Route exact path="/users">
+            <Users userData={userData}/>
+          </Route>
+          <Route>
+            <CreateUser onLogin={setUser}/>
+          </Route>
       </Switch>
     </div>
   );
