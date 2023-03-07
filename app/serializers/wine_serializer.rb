@@ -1,5 +1,4 @@
 class WineSerializer < ActiveModel::Serializer
-  attributes :id, :name, :verietal, :region, :year, :winery_id
-  belongs_to :winery
-  belongs_to :user
+  attributes :id, :name, :verietal, :region, :year, :users, :winery
+  has_many :users
 end

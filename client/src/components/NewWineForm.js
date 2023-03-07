@@ -21,7 +21,7 @@ function NewWineForm({onAddWine, wineData, wineryData}){
     }  
 
     const handleSubmit = (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         fetch("/wines", {
           method: "POST",
           headers: {
@@ -32,13 +32,13 @@ function NewWineForm({onAddWine, wineData, wineryData}){
           .then((r) => r.json())
           .then((newWine) => {
             setFormData(initialState);
-            onAddWine(newWine);
+            // onAddWine(newWine);
             console.log(newWine)
           });
       }
 
     return (
-        <div>
+        <div className="card">
             <h3>Add A New Wine</h3>
             <form onSubmit={handleSubmit}>
                 <input type="text" id="name" value={formData.name} onChange={handleChange}/><br/>

@@ -13,8 +13,8 @@ function App() {
   const [wineData, setWineData] = useState([])
   const [data, setData] = useState([])
   const [user, setUser] = useState(null)
-  const [userLoggedin, setUserLoggedin] = useState([])
   const [userData, setUserData] = useState([])
+  const [tastings, setTastings] = useState([])
 
   useEffect(()=>{
     fetch("/me").then((r) => {
@@ -31,23 +31,26 @@ function App() {
     fetch("/wines")
     .then(res => res.json())
     .then(data => setWineData(data))
+    fetch("/tastings")
+    .then(res => res.json())
+    .then(data => setTastings(data))
 }, []);
 
 function handleAddWine(addedWine) {
   setWineData((wines) => [...wines, addedWine]);
 }
 
-function handleUpdateWine(updatedWine) {
-  setWineData((wines) =>
-    wines.map((wine) => {
-      return wine.id === updatedWine.id ? updatedWine : wine;
+function handleUpdateTasting(updatedTasting) {
+  setTastings((tastings) =>
+    tastings.map((tasting) => {
+      return tasting.id === updatedTasting.id ? updatedTasting : tasting;
     })
   );
 }
 
-function handleDeleteWine(deletedWine) {
-  setWineData((wines) =>
-    wines.filter((wine) => wine.id !== deletedWine.id)
+function handleDeleteTasting(deletedTasting) {
+  setTastings((tastingd) =>
+    tastingd.filter((tasting) => tasting.id !== deletedTasting.id)
   );
 }
 
@@ -59,7 +62,9 @@ function onLogin(user){
   setUser(user)
 }
 
-
+function addUserWine(addedWine){
+  console.log(addedWine)
+}
 
 return (                             
   <div className="App">
@@ -70,11 +75,13 @@ return (
         <Route exact path="/">
           {<Home 
             data={wineData}
-            onUpdateWine={handleUpdateWine}
-            onDeleteWine={handleDeleteWine}
+            onUpdateTasting={handleUpdateTasting}
+            onDeleteTasting={handleDeleteTasting}
             onAddWine={handleAddWine}
             wineryData={data}
             user={user}
+            addUserWine={addUserWine}
+            tastings={tastings}
           />}
         </Route>
         <Route exact path="/wineries">{

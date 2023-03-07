@@ -1,6 +1,6 @@
 class Wine < ApplicationRecord
-    validates :name, :verietal, :region, :year, :winery_id, presence: true
-    belongs_to :user, optional: true
-    belongs_to :winery, optional: true
-
+    validates :name, :verietal, :region, :year, presence: true
+    belongs_to :winery
+    has_many :tastings
+    has_many :users, through: :tastings
 end

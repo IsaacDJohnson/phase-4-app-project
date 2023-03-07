@@ -16,7 +16,12 @@ class UsersController < ApplicationController
             render json: {error: "Not authorized" }, status: :unauthorized
         end
     end
-    
+
+    def show_wines
+        user = User.find_by(id: session[:user_id])
+        wines = user.wines
+        render json: wines    
+    end
 
     def create
         user = User.create!(user_params)

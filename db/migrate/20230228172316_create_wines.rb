@@ -6,8 +6,6 @@ class CreateWines < ActiveRecord::Migration[6.1]
       t.string :region
       t.integer :year
       t.integer :winery_id
-      t.integer :user_id
-
       t.timestamps
     end
   end

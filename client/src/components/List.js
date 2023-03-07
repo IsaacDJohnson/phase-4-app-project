@@ -1,8 +1,7 @@
 import React from 'react';
 import ListItem from './ListItem';
-import FindWine from './FindWine';
 
-function List({wineData, onUpdateWine, onDeleteWine, user}) {
+function List({wineData, user, addUserWine}) {
 
     // const styles = {
     //     background: "#02577a",
@@ -12,7 +11,6 @@ function List({wineData, onUpdateWine, onDeleteWine, user}) {
   return (
     <div>
       <h2>Wine List: </h2>
-      <FindWine />
       <ul>
        {wineData ? wineData.map((wine)=> 
                     <ListItem
@@ -20,8 +18,7 @@ function List({wineData, onUpdateWine, onDeleteWine, user}) {
                         wine={wine} 
                         key={wine.id}
                         winery={wine.winery}
-                        onUpdateWine={onUpdateWine} 
-                        onDeleteWine={onDeleteWine} 
+                        addUserWine={addUserWine} 
                     />) : []}
       </ul>
     </div>

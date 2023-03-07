@@ -32,7 +32,7 @@ puts "done seeding Wineries"
 
 puts "seeding Users"
 
-User.create(username: "John Doe")
+User.create(username: "John Doe", password: "password", password_confirmation: "password")
 
 puts "done seeding Users"
 

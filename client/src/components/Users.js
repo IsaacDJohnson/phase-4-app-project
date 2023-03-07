@@ -2,10 +2,9 @@ import React from 'react'
 
 function Users({userData}){
     return (
-        <div>
+        <div className='card'>
             <ul>
-            {userData ? userData.map((user)=> 
-                    <li>{user.username}</li>) : []}
+            {userData ? userData.map((user)=> <li>{user.username}</li>) : []}
             </ul>
         </div>
     )
