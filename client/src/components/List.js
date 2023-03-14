@@ -1,7 +1,7 @@
 import React from 'react';
 import ListItem from './ListItem';
 
-function List({wineData, user, addUserWine}) {
+function List({wineData, addUserWine, user}) {
 
     // const styles = {
     //     background: "#02577a",
@@ -14,7 +14,7 @@ function List({wineData, user, addUserWine}) {
       <ul>
        {wineData ? wineData.map((wine)=> 
                     <ListItem
-                        user={user} 
+                        user={user}
                         wine={wine} 
                         key={wine.id}
                         winery={wine.winery}

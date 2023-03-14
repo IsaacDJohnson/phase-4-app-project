@@ -1,7 +1,8 @@
 import React, {useState} from "react";
 import EditForm from './EditForm';
+import { useLogged } from "./UserContextProvider";
 
-function TastingsListItem({item, onDeleteTasting, onUpdateTasting, user}){
+function TastingsListItem({item, onDeleteTasting, onUpdateTasting}){
 
     const [rating, setTastingRating] = useState("")
     const [editForm, setEditForm] = useState(true)
@@ -38,8 +39,8 @@ function TastingsListItem({item, onDeleteTasting, onUpdateTasting, user}){
         <div className="card">
             <h3>{item.name}</h3>
             {editForm ? <h3>rating: {item.rating}</h3> : <EditForm handleSubmit={handleUpdateTasting} handleChangeName={handleChangeName} rating={rating}/>}
-            {editForm ? <button onClick={() => editForm ? setEditForm(false) : setEditForm(true)}>{user ? "edit" : "login to edit"}</button>: []}
-            {user ? <button onClick={handleDelete}>delete</button> : []}<br/>
+            {editForm ? <button onClick={() => editForm ? setEditForm(false) : setEditForm(true)}>{!useLogged ? "edit" : "login to edit"}</button>: []}
+            {useLogged ? <button onClick={handleDelete}>delete</button> : []}<br/>
         </div>
     )
 }

@@ -1,9 +1,10 @@
 import React from 'react';
+import { useLogged } from './UserContextProvider';
 
-function Header({user, username}){
+function Header({username}){
     return (
         <div className='header'>
-            {!user ? <h1>Welcome to From the Vine WineClub and Catalogue</h1> : <h1>Welcome {username}</h1>}
+            {useLogged ? <h1>Welcome to From the Vine WineClub and Catalogue</h1> : <h1>Welcome {username}</h1>}
         </div>
     )
 }

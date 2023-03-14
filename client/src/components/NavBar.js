@@ -1,7 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useLogged } from "./UserContextProvider";
 
-function NavBar({setUser, user}) {
+function NavBar({setUser}) {
 
   function handleLogOut(){
     fetch("/logout", { method: "DELETE" }).then((r) => {
@@ -17,8 +18,8 @@ function NavBar({setUser, user}) {
         <NavLink to="/"> -Home- </NavLink>
         <NavLink to="/wineries"> -Wineries- </NavLink>
         <NavLink to="/users"> -Members- </NavLink>
-        {!user ? <NavLink to="new_user"> -Create Account- </NavLink>:[]}<br/>
-        {user ? <button onClick={handleLogOut}>Logout</button>:[]}
+        {useLogged ? <NavLink to="new_user"> -Create Account-   </NavLink>:[]}<br/>
+        {!useLogged ? <button onClick={handleLogOut}>Logout</button>:[]}
       </div>
     </header>
   );

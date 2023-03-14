@@ -7,6 +7,7 @@ import LogInUser from './components/LogInUser';
 import WineriesList from './components/WineriesList';
 import Users from './components/Users'
 import CreateUser from './components/CreateUser';
+import { useLogged, UserContextProvider } from './components/UserContextProvider';
 
 function App() {
 
@@ -36,6 +37,8 @@ function App() {
     .then(data => setTastings(data))
 }, []);
 
+console.log(user)
+
 function handleAddWine(addedWine) {
   setWineData((wines) => [...wines, addedWine]);
 }
@@ -49,8 +52,8 @@ function handleUpdateTasting(updatedTasting) {
 }
 
 function handleDeleteTasting(deletedTasting) {
-  setTastings((tastingd) =>
-    tastingd.filter((tasting) => tasting.id !== deletedTasting.id)
+  setTastings((tastings) =>
+    tastings.filter((tasting) => tasting.id !== deletedTasting.id)
   );
 }
 
@@ -68,36 +71,37 @@ function addUserWine(addedWine){
 
 return (                             
   <div className="App">
-    <Header user={user} username={user ? user.username : []}/>
-    <NavBar setUser={setUser} user={user}/>
-    {!user ? <LogInUser onLogin={onLogin}/> : []}
-      <Switch>  
-        <Route exact path="/">
-          {<Home 
-            data={wineData}
-            onUpdateTasting={handleUpdateTasting}
-            onDeleteTasting={handleDeleteTasting}
-            onAddWine={handleAddWine}
-            wineryData={data}
-            user={user}
-            addUserWine={addUserWine}
-            tastings={tastings}
-          />}
-        </Route>
-        <Route exact path="/wineries">{
-          <WineriesList
-            userCheck={user}
-            data={data} 
-            onAddWinery={onAddWinery}
-          />}
+    {useLogged ? <LogInUser onLogin={onLogin}/> : []}
+    <UserContextProvider >
+      <Header username={user ? user.username : []}/>
+      <NavBar setUser={setUser} />
+        <Switch>  
+          <Route exact path="/">
+            {<Home 
+              data={wineData}
+              onUpdateTasting={handleUpdateTasting}
+              onDeleteTasting={handleDeleteTasting}
+              onAddWine={handleAddWine}
+              wineryData={data}
+              user={user}
+              addUserWine={addUserWine}
+              tastings={tastings}
+            />}
           </Route>
-          <Route exact path="/users">
-            <Users userData={userData}/>
-          </Route>
-          <Route>
-            <CreateUser onLogin={setUser}/>
-          </Route>
-      </Switch>
+          <Route exact path="/wineries">{
+           <WineriesList
+             data={data} 
+             onAddWinery={onAddWinery}
+           />}
+           </Route>
+           <Route exact path="/users">
+             <Users userData={userData}/>
+           </Route>
+            <Route>
+             <CreateUser onLogin={setUser}/>
+           </Route>
+       </Switch>
+      </UserContextProvider >
     </div>
   );
 }

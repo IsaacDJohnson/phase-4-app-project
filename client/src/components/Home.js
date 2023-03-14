@@ -2,19 +2,17 @@ import React from 'react';
 import List from './List'
 import NewWineForm from './NewWineForm';
 import TastingsList from './TastingsList';
+import { useLogged } from './UserContextProvider';
 
-function Home({data, onUpdateTasting, onDeleteTasting, wineryData, handleAddWine, user, addUserWine, tastings}) {
+function Home({data, onUpdateTasting, onDeleteTasting, wineryData, handleAddWine, addUserWine, tastings, user}) {
 
-    // const styles = {
-    //     background: "#02577a",
-    //     color: "white"
-    //   };
+
 
   return (
     <div>
-      {user ? <NewWineForm onAddWine={handleAddWine} wineData={data} wineryData={wineryData}/> : []}
-      {user ? <TastingsList tastings={tastings} user={user} onDeleteTasting={onDeleteTasting} onUpdateTasting={onUpdateTasting}/>:[]}
-      <List wineData={data} user={user} addUserWine={addUserWine}/>
+      {!useLogged ? <NewWineForm onAddWine={handleAddWine} wineData={data} wineryData={wineryData}/> : []}
+      {!useLogged ? <TastingsList tastings={tastings} onDeleteTasting={onDeleteTasting} onUpdateTasting={onUpdateTasting} user={user}/>:[]}
+      <List wineData={data} addUserWine={addUserWine} user={user}/>
     </div>
   );
 }
