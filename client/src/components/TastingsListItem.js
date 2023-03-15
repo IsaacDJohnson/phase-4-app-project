@@ -6,7 +6,7 @@ function TastingsListItem({item, onDeleteTasting, onUpdateTasting}){
 
     const [rating, setTastingRating] = useState("")
     const [editForm, setEditForm] = useState(true)
-
+    const logged_in = useLogged()
     const handleChangeName = (e) => setTastingRating(e.target.value)
     
     function handleUpdateTasting() {
@@ -39,8 +39,8 @@ function TastingsListItem({item, onDeleteTasting, onUpdateTasting}){
         <div className="card">
             <h3>{item.name}</h3>
             {editForm ? <h3>rating: {item.rating}</h3> : <EditForm handleSubmit={handleUpdateTasting} handleChangeName={handleChangeName} rating={rating}/>}
-            {editForm ? <button onClick={() => editForm ? setEditForm(false) : setEditForm(true)}>{!useLogged ? "edit" : "login to edit"}</button>: []}
-            {useLogged ? <button onClick={handleDelete}>delete</button> : []}<br/>
+            {editForm ? <button onClick={() => editForm ? setEditForm(false) : setEditForm(true)}>edit rating</button>: []}
+            <button onClick={handleDelete}>delete</button><br/>
         </div>
     )
 }

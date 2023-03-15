@@ -4,7 +4,8 @@ function CreateUser({ onLogin }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  
+    const [errors, setErrors] = useState([]);
+
     function handleSubmit(e) {
       e.preventDefault();
       fetch("/signup", {
@@ -20,6 +21,8 @@ function CreateUser({ onLogin }) {
       }).then((r) => {
         if (r.ok) {
           r.json().then((user) => onLogin(user));
+        } else {
+          r.json().then((errorData) => setErrors(errorData.errors));
         }
       });
     }
@@ -34,6 +37,13 @@ function CreateUser({ onLogin }) {
           <input type="text" value={password} onChange={(e)=> setPassword(e.target.value)}/><br/>
           <>confirm password: </>
           <input type="text" value={passwordConfirmation} onChange={(e)=> setPasswordConfirmation(e.target.value)}/>
+          {errors.length > 0 && (
+            <ul style={{ color: "red" }}>
+              {errors.map((error) => (
+            <li key={error}>{error}</li>
+                ))}
+           </ul>
+  )}
           <button type="submit">submit</button>
         </form>
       </div>

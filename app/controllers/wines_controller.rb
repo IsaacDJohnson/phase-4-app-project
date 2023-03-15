@@ -14,18 +14,8 @@ class WinesController < ApplicationController
     def create 
         wine = Wine.create(wine_params)
         render json: wine, status: :created
-    end
-
-    def update
-        wine = Wine.find_by(id: params[:id])
-        wine.update(wine_params)
-        render json: wine    
-    end
-
-    def destroy
-        wine = Wine.find_by(id: params[:id])
-        wine.destroy
-        head :no_content    
+    rescue ActiveRecord::RecordInvalid => e
+        render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
     end
 
     private

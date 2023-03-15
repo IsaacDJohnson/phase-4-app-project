@@ -16,6 +16,7 @@ function App() {
   const [user, setUser] = useState(null)
   const [userData, setUserData] = useState([])
   const [tastings, setTastings] = useState([])
+  const logged_in = useLogged()
 
   useEffect(()=>{
     fetch("/me").then((r) => {
@@ -36,8 +37,6 @@ function App() {
     .then(res => res.json())
     .then(data => setTastings(data))
 }, []);
-
-console.log(user)
 
 function handleAddWine(addedWine) {
   setWineData((wines) => [...wines, addedWine]);
@@ -66,15 +65,15 @@ function onLogin(user){
 }
 
 function addUserWine(addedWine){
-  console.log(addedWine)
+  setTastings((wines)=> [...wines, addedWine])
 }
 
 return (                             
   <div className="App">
-    {useLogged ? <LogInUser onLogin={onLogin}/> : []}
     <UserContextProvider >
-      <Header username={user ? user.username : []}/>
-      <NavBar setUser={setUser} />
+    {!user ? <LogInUser onLogin={onLogin}/>: []}
+      <Header username={user ? user.username : []} user={user}/>
+      <NavBar setUser={setUser} user={user}/>
         <Switch>  
           <Route exact path="/">
             {<Home 
@@ -92,6 +91,7 @@ return (
            <WineriesList
              data={data} 
              onAddWinery={onAddWinery}
+             user={user}
            />}
            </Route>
            <Route exact path="/users">

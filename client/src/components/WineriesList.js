@@ -3,13 +3,14 @@ import Winery from './Winery'
 import NewWineryForm from './NewWineryForm'
 import { useLogged } from "./UserContextProvider"
 
-function WineriesList({onAddWinery, data}){
+function WineriesList({onAddWinery, data, user}){
+
 
     // console.log(data)
     return (
         <div className="card">
             <h1>Wineries List:</h1>
-            {!useLogged ? <NewWineryForm onAddWinery={onAddWinery}/> : [] }
+            {user ? <NewWineryForm onAddWinery={onAddWinery}/> : [] }
             <ul>
             {data ? data.map((winery)=> 
                     <Winery 

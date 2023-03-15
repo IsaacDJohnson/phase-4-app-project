@@ -6,12 +6,12 @@ import { useLogged } from './UserContextProvider';
 
 function Home({data, onUpdateTasting, onDeleteTasting, wineryData, handleAddWine, addUserWine, tastings, user}) {
 
-
+  const logged_in = useLogged()
 
   return (
     <div>
-      {!useLogged ? <NewWineForm onAddWine={handleAddWine} wineData={data} wineryData={wineryData}/> : []}
-      {!useLogged ? <TastingsList tastings={tastings} onDeleteTasting={onDeleteTasting} onUpdateTasting={onUpdateTasting} user={user}/>:[]}
+      {user ? <NewWineForm onAddWine={handleAddWine} wineData={data} wineryData={wineryData}/> : []}
+      {user ? <TastingsList tastings={tastings} onDeleteTasting={onDeleteTasting} onUpdateTasting={onUpdateTasting} user={user}/>:[]}
       <List wineData={data} addUserWine={addUserWine} user={user}/>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useLogged } from './UserContextProvider';
 import WineComp from './WineComp';
 
@@ -33,7 +33,7 @@ function ListItem({wine, winery, addUserWine, user}) {
                     year={year}
                     winery={winery}
           />
-        {!useLogged ? <button onClick={handleAddUserWine}>add to my list</button>:[]}
+        {user ? <button onClick={handleAddUserWine}>add to my list</button>:[]}
         <p>---------------------------------------------------------------------------------------------------</p>
     </div>
   );

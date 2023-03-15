@@ -9,6 +9,8 @@ class WineriesController < ApplicationController
     def create 
         winery = Winery.create(winery_params)
         render json: winery, status: :created
+    rescue ActiveRecord::RecordInvalid => e
+        render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
     end
 
     def show
