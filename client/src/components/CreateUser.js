@@ -24,9 +24,9 @@ function CreateUser({ onLogin }) {
         } else {
           r.json().then((errorData) => setErrors(errorData.errors));
         }
+        console.log(errors)
       });
     }
-  
     return (
       <div>
         <h1>create account</h1>
@@ -37,13 +37,6 @@ function CreateUser({ onLogin }) {
           <input type="text" value={password} onChange={(e)=> setPassword(e.target.value)}/><br/>
           <>confirm password: </>
           <input type="text" value={passwordConfirmation} onChange={(e)=> setPasswordConfirmation(e.target.value)}/>
-          {errors.length > 0 && (
-            <ul style={{ color: "red" }}>
-              {errors.map((error) => (
-            <li key={error}>{error}</li>
-                ))}
-           </ul>
-  )}
           <button type="submit">submit</button>
         </form>
       </div>

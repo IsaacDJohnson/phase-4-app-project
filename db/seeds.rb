@@ -13,8 +13,8 @@ Wine.destroy_all
 puts "🍷 aging wines..."
 
 wine_type = ['Pinot Noir', 'Pinot Grigio', 'Cabernet', 'Merlot', 'Chardonnay', 'Malbec', 'Sauvignon Blanc']
-wine_name = ['Flora and Vine', 'Chateau la Vie', 'Redwood Reserve', 'Rock and Stone', 'Fernetti Number 6', 'Bergusia 1908', 'Dove Tail', 'Ominous', 'Creaky Door Hinge', 'Pears and Pigeons', 'Iluminosity', 'Drowned Metropolis']
-region = ['North America', 'Italy', 'France', 'Greece' ]
+wine_name = ['Cerebral Sunset', 'Toussaint Red', 'The Silver Shroud', 'BlackBriar', '14 Hands', 'Helios', 'Xero Hour', 'Flora and Vine', 'Chateau la Vie', 'Redwood Reserve', 'Rock and Stone', 'Fernetti Number 6', 'Bergusia 1908', 'Dove Tail', 'Ominous', 'Creaky Door Hinge', 'Pears and Pigeons', 'Iluminosity', 'Drowned Metropolis']
+region = ['North America', 'Italy', 'France', 'Greece', 'Spain', 'Argentina']
 
 # ---------------------------------------------------------------------------------
 
@@ -30,18 +30,18 @@ puts "done seeding Wineries"
 
 # ---------------------------------------------------------------------------------
 
-puts "seeding Users"
+# puts "seeding Users"
 
-User.create(username: "John Doe", password: "password", password_confirmation: "password")
+# User.create(username: "John Doe", password: "password", password_confirmation: "password")
 
-puts "done seeding Users"
+# puts "done seeding Users"
 
-# ---------------------------------------------------------------------------------
+# # ---------------------------------------------------------------------------------
 
 puts "seeding wines"
 
 Winery.all.each do |winery|
-    rand(1..3).times do 
+    rand(2..5).times do 
         Wine.create(name: wine_name.sample, verietal: wine_type.sample, region: region.sample, year: rand(1900..2020), winery_id: winery.id)
     end
 end

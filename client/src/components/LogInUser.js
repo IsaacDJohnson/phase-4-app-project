@@ -23,7 +23,7 @@ function LoginUser({ onLogin }) {
             if (r.ok) {
               r.json().then((user) => onLogin(user));
             } else {
-              r.json().then((errorData) => setErrors(errorData.errors));
+              r.json().then((errorData) => setErrors(errorData));
             }
         });
     }
@@ -43,14 +43,11 @@ function LoginUser({ onLogin }) {
              type="text"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-            /><br/>
-            {errors.length > 0 && (
-              <ul style={{ color: "red" }}>
-                {errors.map((error) => (
-                <li key={error}>{error}</li>
-                ))}
-              </ul>
-            )}
+            />
+            <div>
+            {errors.status}<br/> 
+            {errors.error}
+            </div>
             <button type="submit" onClick={toggleLoggedIn}>Login</button>
          </form>
       </div>

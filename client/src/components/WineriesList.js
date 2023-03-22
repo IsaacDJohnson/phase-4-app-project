@@ -1,22 +1,20 @@
 import React from "react"
 import Winery from './Winery'
 import NewWineryForm from './NewWineryForm'
-import { useLogged } from "./UserContextProvider"
 
 function WineriesList({onAddWinery, data, user}){
 
-
-    // console.log(data)
     return (
         <div className="card">
-            <h1>Wineries List:</h1>
             {user ? <NewWineryForm onAddWinery={onAddWinery}/> : [] }
+            <h1>Wineries List:</h1>
             <ul>
             {data ? data.map((winery)=> 
                     <Winery 
                         name={winery.name}
                         region={winery.region} 
                         key={winery.id}
+                        wines={winery.wines}
                     />) : []}
             </ul>
         </div>

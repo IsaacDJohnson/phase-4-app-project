@@ -3,11 +3,6 @@ import ListItem from './ListItem';
 
 function List({wineData, addUserWine, user}) {
 
-    // const styles = {
-    //     background: "#02577a",
-    //     color: "white"
-    //   };
-
   return (
     <div>
       <h2>Wine List: </h2>

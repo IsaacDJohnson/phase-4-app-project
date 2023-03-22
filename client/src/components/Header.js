@@ -1,9 +1,6 @@
 import React from 'react';
-import { useLogged } from './UserContextProvider';
 
 function Header({username, user}){
-
-    const logged_in = useLogged()
 
     return (
         <div className='header'>

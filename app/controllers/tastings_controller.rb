@@ -1,19 +1,21 @@
 class TastingsController < ApplicationController
 
+    skip_before_action :authorize
+
     def index
         tasting = Tasting.all
         render json: tasting    
     end
 
     def create
-        tasting = Tasting.create(tasting_params)
+        tasting = Tasting.create!(tasting_params)
         render json: tasting    
     end
 
     def show
         tasting = Tasting.find(params[:id])
         render json: tasting    
-    end
+    end    
 
     def destroy
         tasting = Tasting.find_by(id: params[:id])

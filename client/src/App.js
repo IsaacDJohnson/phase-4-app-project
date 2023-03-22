@@ -7,7 +7,7 @@ import LogInUser from './components/LogInUser';
 import WineriesList from './components/WineriesList';
 import Users from './components/Users'
 import CreateUser from './components/CreateUser';
-import { useLogged, UserContextProvider } from './components/UserContextProvider';
+import { UserContextProvider } from './components/UserContextProvider';
 
 function App() {
 
@@ -16,12 +16,14 @@ function App() {
   const [user, setUser] = useState(null)
   const [userData, setUserData] = useState([])
   const [tastings, setTastings] = useState([])
-  const logged_in = useLogged()
 
   useEffect(()=>{
     fetch("/me").then((r) => {
       if (r.ok) {
-        r.json().then((user) => setUser(user))
+        r.json().then((user) => {
+          setUser(user)
+          setTastings(user.tastings)
+        })
       }
     })
     fetch("/users")
@@ -33,21 +35,30 @@ function App() {
     fetch("/wines")
     .then(res => res.json())
     .then(data => setWineData(data))
-    fetch("/tastings")
-    .then(res => res.json())
-    .then(data => setTastings(data))
 }, []);
+
 
 function handleAddWine(addedWine) {
   setWineData((wines) => [...wines, addedWine]);
+  setData(data.map((winery)=> {
+    if (winery.id === addedWine.winery.id){
+      winery.wines = [...winery.wines, addedWine]
+      return winery
+    } else {
+      return winery
+    }
+  }))
 }
 
-function handleUpdateTasting(updatedTasting) {
-  setTastings((tastings) =>
-    tastings.map((tasting) => {
-      return tasting.id === updatedTasting.id ? updatedTasting : tasting;
-    })
-  );
+function handleUpdateTasting(uppdatedTasting) {
+  setTastings(user.tastings.map((tasting)=>{
+    if (tasting.id === uppdatedTasting.id){
+      tasting = uppdatedTasting
+      return tasting
+    } else {
+      return tasting
+    }
+  })) 
 }
 
 function handleDeleteTasting(deletedTasting) {
@@ -61,7 +72,9 @@ function onAddWinery(addedWinery){
 }
 
 function onLogin(user){
+  setUserData((users) => [...users, user])
   setUser(user)
+  setTastings(user.tastings)
 }
 
 function addUserWine(addedWine){
@@ -98,7 +111,7 @@ return (
              <Users userData={userData}/>
            </Route>
             <Route>
-             <CreateUser onLogin={setUser}/>
+             <CreateUser onLogin={onLogin}/>
            </Route>
        </Switch>
       </UserContextProvider >

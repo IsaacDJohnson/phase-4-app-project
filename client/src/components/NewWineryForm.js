@@ -1,8 +1,8 @@
 import React, {useState} from "react";
 
 const initialState = {
-    name: "name",
-    region: "region",
+    name: "",
+    region: "",
 }
 
 function NewWineryForm({onAddWinery}){
@@ -38,7 +38,9 @@ function NewWineryForm({onAddWinery}){
         <div>
             <h3>Add A New Winery</h3>
             <form onSubmit={handleSubmit}>
+                <p>Name:</p>
                 <input type="text" id="name" value={formData.name} onChange={handleChange}/><br/>
+                <p>Region:</p>
                 <input type="text" id="region" value={formData.region} onChange={handleChange}/><br/>
                 <button type="submit">add</button>
             </form>

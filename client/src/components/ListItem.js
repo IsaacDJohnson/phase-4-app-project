@@ -1,5 +1,4 @@
 import React from 'react';
-import { useLogged } from './UserContextProvider';
 import WineComp from './WineComp';
 
 function ListItem({wine, winery, addUserWine, user}) {
@@ -27,7 +26,7 @@ function ListItem({wine, winery, addUserWine, user}) {
 
   return (
     <div className='card'>
-          <WineComp name={name}
+          <WineComp wineName={name}
                     verietal={verietal}
                     region={region}
                     year={year}

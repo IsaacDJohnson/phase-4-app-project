@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { useLogged, useLoggedUpdate } from "./UserContextProvider";
 
 function NavBar({setUser, user}) {
 

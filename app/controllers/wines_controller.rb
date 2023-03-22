@@ -1,5 +1,6 @@
 class WinesController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+    skip_before_action :authorize, only: :index
 
     def index
         wines = Wine.all
@@ -12,7 +13,7 @@ class WinesController < ApplicationController
     end
 
     def create 
-        wine = Wine.create(wine_params)
+        wine = Wine.create!(wine_params)
         render json: wine, status: :created
     rescue ActiveRecord::RecordInvalid => e
         render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
